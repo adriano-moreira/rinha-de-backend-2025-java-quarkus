@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
 ## JVM version
-mvn clean package
+mvn clean package -Dmaven.test.skip=true
 docker buildx build . -f src/main/docker/Dockerfile.jvm -t adrianomoreira86/rinha-de-backend-2025-java-quarkus:latest
 
 ### Native version

@@ -1,4 +1,4 @@
-package rinha.dto;
+package rinha.bridge.processor;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 

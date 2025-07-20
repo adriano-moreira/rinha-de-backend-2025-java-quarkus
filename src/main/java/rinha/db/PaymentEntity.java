@@ -1,5 +1,6 @@
 package rinha.db;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -9,14 +10,16 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "payment")
+@Table(name = "payments")
 public class PaymentEntity {
 
     @Id
+    @Column(name = "correlation_id")
     private UUID correlationId;
 
     private BigDecimal amount;
 
+    @Column(name = "requested_at")
     private LocalDateTime requestedAt;
 
     private PaymentStatus status;
@@ -71,5 +74,16 @@ public class PaymentEntity {
 
     public void setProcessor(ProcessorType processorType) {
         this.processor = processorType;
+    }
+
+    @Override
+    public String toString() {
+        return "PaymentEntity{" +
+                "correlationId=" + correlationId +
+                ", amount=" + amount +
+                ", requestedAt=" + requestedAt +
+                ", status=" + status +
+                ", processor=" + processor +
+                '}';
     }
 }

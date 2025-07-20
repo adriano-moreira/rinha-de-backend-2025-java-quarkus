@@ -1,4 +1,4 @@
-package rinha.dto;
+package rinha.features.payment;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 

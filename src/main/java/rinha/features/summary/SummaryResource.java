@@ -4,22 +4,21 @@ import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.QueryParam;
-import rinha.dto.PaymentsSummary;
 
 import java.util.Date;
 
 @Path("/payments-summary")
-public class PaymentSummaryResource {
+public class SummaryResource {
 
     private final SummaryUserCase summaryUserCase;
 
-    public PaymentSummaryResource(SummaryUserCase summaryUserCase) {
+    public SummaryResource(SummaryUserCase summaryUserCase) {
         this.summaryUserCase = summaryUserCase;
     }
 
     @GET()
     @RunOnVirtualThread
-    public PaymentsSummary getPaymentsSummary(
+    public SummaryDTO getPaymentsSummary(
             @QueryParam("from") Date from,
             @QueryParam("to") Date to
     ) {

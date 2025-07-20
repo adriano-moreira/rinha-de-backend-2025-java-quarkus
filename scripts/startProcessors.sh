@@ -1,2 +1,3 @@
 cd ../rinha-de-backend-2025/payment-processor
-docker-compose up -d
+docker compose up
+cocker compose rm -f

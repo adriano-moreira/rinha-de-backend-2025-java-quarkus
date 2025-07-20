@@ -2,7 +2,7 @@ services:
   quarkus-backend-1: &quarkus-backend
     image: adrianomoreira86/rinha-de-backend-2025-java-quarkus:latest
     ports:
-      - "8081:8080"
+      - "8080:8080"
       - "9999:8080"
     networks:
       - app

@@ -1,11 +1,11 @@
-package rinha.dto;
+package rinha.features.summary;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 import java.math.BigDecimal;
 
 @RegisterForReflection
-public class Summary {
+public class SummaryDetailDTO {
     private Long totalRequests = 0L;
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
@@ -28,5 +28,13 @@ public class Summary {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "totalRequests=" + totalRequests +
+                ", totalAmount=" + totalAmount +
+                '}';
     }
 }

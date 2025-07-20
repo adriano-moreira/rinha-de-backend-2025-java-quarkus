@@ -1,7 +1,6 @@
 package rinha.features.summary;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import rinha.dto.PaymentsSummary;
 
 import java.util.Date;
 
@@ -14,7 +13,7 @@ public class SummaryUserCase {
         this.summaryRepository = summaryRepository;
     }
 
-    public PaymentsSummary summary(Date from, Date to) {
+    public SummaryDTO summary(Date from, Date to) {
         if (from == null) {
             from = new Date(0);
         }

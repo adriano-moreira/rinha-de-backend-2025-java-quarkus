@@ -7,8 +7,8 @@ import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @Path("")
-@RegisterRestClient( baseUri = "http://localhost:8001/")
-public interface PaymentProcessorClient {
+@RegisterRestClient(configKey = "processor-default")
+public interface ProcessorDefault {
 
     @POST
     @Path("/payments")
@@ -17,4 +17,5 @@ public interface PaymentProcessorClient {
     @GET
     @Path("/payments/service-health")
     Response healthCheck();
+
 }

@@ -7,8 +7,7 @@ import jakarta.ws.rs.core.Response;
 import rinha.bridge.processor.PaymentProcessorPayload;
 import rinha.db.PaymentEntity;
 import rinha.db.PaymentRepository;
-import rinha.dto.PaymentDTO;
-import rinha.features.ProcessorService;
+import rinha.features.processor.ProcessorService;
 
 @ApplicationScoped
 public class ReceiveUserCase {
