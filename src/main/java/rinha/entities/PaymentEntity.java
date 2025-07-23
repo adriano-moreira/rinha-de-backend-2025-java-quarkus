@@ -1,4 +1,4 @@
-package rinha.db;
+package rinha.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,13 +27,6 @@ public class PaymentEntity {
     private ProcessorType processor;
 
     public PaymentEntity() {
-    }
-
-    public PaymentEntity(UUID correlationId, BigDecimal amount) {
-        this.correlationId = correlationId;
-        this.amount = amount;
-        this.requestedAt = LocalDateTime.now();
-        this.status = PaymentStatus.CREATED;
     }
 
     public UUID getCorrelationId() {

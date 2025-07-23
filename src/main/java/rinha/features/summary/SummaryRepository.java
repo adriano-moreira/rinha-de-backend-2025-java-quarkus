@@ -3,7 +3,7 @@ package rinha.features.summary;
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
-import rinha.db.ProcessorType;
+import rinha.entities.ProcessorType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,14 +27,13 @@ public class SummaryRepository {
             group by processor
             """;
 
-
     public SummaryDTO summary(Date from, Date to) {
         try (
                 Connection connection = dataSource.getConnection()
         ) {
             PreparedStatement preparedStatement = connection.prepareStatement(summaryQuery);
-            preparedStatement.setDate(1, new java.sql.Date(from.getTime()));
-            preparedStatement.setDate(2, new java.sql.Date(to.getTime()));
+            preparedStatement.setTimestamp(1, new java.sql.Timestamp(from.getTime()));
+            preparedStatement.setTimestamp(2, new java.sql.Timestamp(to.getTime()));
             ResultSet resultSet = preparedStatement.executeQuery();
 
             SummaryDTO summary = new SummaryDTO();

@@ -1,4 +1,4 @@
-package rinha.db;
+package rinha.entities;
 
 public enum PaymentStatus {
     CREATED,

@@ -5,8 +5,6 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.QueryParam;
 
-import java.util.Date;
-
 @Path("/payments-summary")
 public class SummaryResource {
 
@@ -19,8 +17,8 @@ public class SummaryResource {
     @GET()
     @RunOnVirtualThread
     public SummaryDTO getPaymentsSummary(
-            @QueryParam("from") Date from,
-            @QueryParam("to") Date to
+            @QueryParam("from") String from,
+            @QueryParam("to") String to
     ) {
         return summaryUserCase.summary(from, to);
     }
