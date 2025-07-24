@@ -11,6 +11,7 @@ import rinha.bridge.processor.PaymentProcessorPayload;
 import rinha.bridge.processor.ProcessorDefault;
 import rinha.bridge.processor.ProcessorFallback;
 import rinha.entities.PaymentEntity;
+import rinha.entities.PaymentRepository;
 import rinha.entities.PaymentStatus;
 import rinha.entities.ProcessorType;
 
@@ -25,7 +26,7 @@ public class ProcessorService {
 
     private final ProcessorDefault defaultClient;
     private final ProcessorFallback fallbackClient;
-    private final ProcessorRepository processorRepository;
+    private final PaymentRepository paymentRepository;
 
     private final AtomicInteger counter = new AtomicInteger();
     private final AtomicBoolean defaultOK = new AtomicBoolean(true);
@@ -39,11 +40,11 @@ public class ProcessorService {
             ProcessorDefault defaultClient,
             @RestClient
             ProcessorFallback fallbackClient,
-            ProcessorRepository processorRepository
+            PaymentRepository paymentRepository
     ) {
         this.defaultClient = defaultClient;
         this.fallbackClient = fallbackClient;
-        this.processorRepository = processorRepository;
+        this.paymentRepository = paymentRepository;
     }
 
     public void onStart(@Observes StartupEvent event) {
@@ -85,10 +86,10 @@ public class ProcessorService {
                     counter.decrementAndGet();
                 });
             }
-            if (shutdown) {
+            if (shutdown && queue.isEmpty()) {
                 return;
             }
-            scheduler.schedule(this::tick, 50, TimeUnit.MILLISECONDS);
+            scheduler.schedule(this::tick, 100, TimeUnit.MILLISECONDS);
         });
     }
 
@@ -108,7 +109,17 @@ public class ProcessorService {
 
     private ProcessorType sendToProcessorImpl(PaymentProcessorPayload payload) {
         if (defaultOK.get()) {
-            try {
+            try { //TODO: try twice is better ?
+                defaultClient.process(payload);
+                return ProcessorType.DEFAULT;
+            } catch (Exception ex) {
+                defaultOK.set(false);
+                scheduler.schedule(() -> defaultOK.set(true), 400, TimeUnit.MILLISECONDS);
+            }
+        }
+
+        if (defaultOK.get()) {
+            try { //TODO: try twice is better ?
                 defaultClient.process(payload);
                 return ProcessorType.DEFAULT;
             } catch (Exception ex) {
@@ -130,7 +141,6 @@ public class ProcessorService {
         return null;
     }
 
-
     @Transactional
     public void update(PaymentProcessorPayload payload, ProcessorType type) {
         PaymentEntity entity = new PaymentEntity();
@@ -139,7 +149,7 @@ public class ProcessorService {
         entity.setRequestedAt(payload.getRequestedAt());
         entity.setProcessor(type);
         entity.setStatus(PaymentStatus.PROCESSED);
-        processorRepository.persist(entity);
+        paymentRepository.persist(entity);
     }
 
 }
