@@ -1,0 +1,10 @@
+{
+    "name": "Adriano Moreira da Silva",
+    "social": ["https://www.linkedin.com/in/moreira-adriano/", "https://github.com/adriano-moreira"],
+    "source-code-repo": "https://github.com/adriano-moreira/rinha-de-backend-2025-java-quarkus",
+    "langs": ["java"],
+    "storages": ["postgres"],
+    "messaging": [""],
+    "load-balancers": ["nginx"],
+    "other-technologies": ["quarkus", "graalvm", "vertx"]
+}
