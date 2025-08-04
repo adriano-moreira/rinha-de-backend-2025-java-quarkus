@@ -7,10 +7,10 @@ x-api-template: &api-template
     postgres:
       condition: service_healthy
   environment:
-    quarkus.datasource.db-kind: postgresql
-    quarkus.datasource.username: admin
-    quarkus.datasource.password: 123
-    quarkus.datasource.reactive.url: vertx-reactive:postgresql://postgres:5432/rinha
+  quarkus.datasource.db-kind: postgresql
+  quarkus.datasource.username: admin
+  quarkus.datasource.password: 123
+  quarkus.datasource.reactive.url: vertx-reactive:postgresql://postgres:5432/rinha
 
 x-worker-template: &worker-template
   image: adrianomoreira86/rinha-de-backend-2025-java-quarkus-worker:latest
@@ -61,6 +61,7 @@ services:
         limits:
           cpus: ".3"
           memory: "48MB"
+
   worker-1:
     <<: *worker-template
     deploy:
