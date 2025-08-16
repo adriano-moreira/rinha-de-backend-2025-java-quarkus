@@ -44,4 +44,6 @@ k6 run -e MAX_REQUESTS=550 rinha.js
 #cd $CWD/../rinha-de-backend-2025/payment-processor
 #docker compose down
 
-cat ../rinha-de-backend-2025/rinha-test/partial-results.json  | jq
+sleep 3
+cat ../rinha-de-backend-2025/rinha-test/partial-results.json | jq
+
